@@ -1,0 +1,70 @@
+//change the ig_js_insert with the static id of your interactive grid
+var widget      = apex.region('ig_js_insert').widget();
+var grid        = widget.interactiveGrid('getViews','grid');  
+var model       = grid.model; 
+var n_code_start, n_code_end, v_desc,v_freq;
+var start= new Date(apex.item("P42_FROM_DATE").getValue());
+var end= new Date(apex.item("P42_TO_DATE").getValue());
+n_code_start = parseInt($v("P2_START_SEQ"), 10);
+n_code_end = parseInt($v("P42_MONTHS"), 10);
+v_desc = $v("P2_SEQ_DESC");
+v_freq=$v("P42_FREQUENCY");
+/*if(v_freq=7){
+
+for (let i = 1; i <=v_freq; i++) {
+    
+    //insert new record on a model
+ var myNewRecordId = model.insertNewRecord();
+
+    //get the new record
+ var myNewRecord = model.getRecord(myNewRecordId);
+
+    //update record values
+    model.setValue(myNewRecord, 'IDD', i.toString());
+    
+
+}
+}
+
+for (var i=new Date(apex.item("P42_FROM_DATE").getValue());i<new Date(apex.item("P42_TO_DATE")); i.setDate(i.getDate()+v_freq))
+ {
+    
+    //insert new record on a model
+ var myNewRecordId = model.insertNewRecord();
+
+    //get the new record
+ var myNewRecord = model.getRecord(myNewRecordId);
+
+    //update record values
+    //model.setValue(myNewRecord, 'IDD', i.toString());
+
+    //model.setValue(myNewRecord, 'IDD', i.getDate());
+    model.setValue(myNewRecord,'INSP_DATE',i.getDate());
+    model.setValue(myNewRecord, 'IDD', i.toString());
+
+
+    }
+    */
+
+
+//var newend = end.setDate(end.getDate()+v_freq);
+
+
+var start = new Date("26-09-2022"); //yyyy-mm-dd
+var end = new Date("26-11-2022"); //yyyy-mm-dd
+
+while(start <= end){
+
+    var mm = start.getMonth();
+    var dd = start.getDate();
+    var yyyy = start.getFullYear();
+    var date = dd+"/"+mm+"/"+yyyy; //yyyy-mm-dd
+
+    alert(date); 
+
+    //start = new Date(start.setDate(start.getDate() + 1)); //date increase by 1
+    model.setValue(myNewRecord,'INSP_DATE',start.getDate()+7);
+
+    
+}
+
