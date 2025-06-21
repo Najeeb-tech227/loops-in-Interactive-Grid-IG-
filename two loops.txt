@@ -1,0 +1,54 @@
+declare
+x number;
+y number;
+
+begin
+--x:=:cont_duration - 1;
+x:=:P7_cont_duration;
+ -- message(:global.iflag||' mm ');
+ -- message('x='||x);
+ -- message(1);
+ --message(33);
+
+/*inserting Records Into Inv_Collected_Receipts*/
+declare
+--MILADI DATE OF THE CONTRACT BEGINING DATE
+   cont_miladi_date date :=BASSIO.h2m(BASSIO.validate_hijri_date(:P7_CONT_EXECUTE_DATE));
+--NUMBER OF DAYS PER YEAR
+   year_days integer := 355;
+--NUMBER OF DAYS BETWEEN TOW CONTRACTS_BALANCE
+   doc_months number := 12/:P7_no_of_doc;
+--TOTAL VALUE OF TH CONTRACT
+   tot_contract_val number := :P7_cont_value * :P7_cont_duration;
+--VALUE OF EACH DOCUMENT OF THE CONTRACT DOCUMENTS
+   doc_val number(12,2) := :P7_cont_value / :P7_no_of_doc ;
+--DATE OF THE DOCUMENT
+doc_hijri_date varchar2(10);
+hijri_date varchar2(8);
+----SUMLAND NUMBER:=0;
+
+x number := 0;
+y number;
+
+begin
+ --- SELECT SUM(LAND_AREA) INTO SUMLAND FROM INVESTS.PLOT_LANDS_CONTRACT WHERE CONTRACTS_ID =:P7_CONTRACTS_ID;
+
+--    message(4);
+     doc_hijri_date := :P7_CONT_EXECUTE_DATE;
+      --     message(5);
+  for I in 1..:P7_cont_duration  loop
+     -- message(6);
+    for J in 1..:P7_no_of_doc  loop    
+  -- message(7);
+           x := J + ((I -1)*:P7_no_of_doc) ;
+  --    message(8);
+      insert into CONTR_BALANCE_DETAILS(CONTRACTS_ID,doc_no,doc_value,doc_date,receipt_no,fin_year,IFLAG,FROM_DATE,TO_DATE,CONT_VALUE_NEW)
+      values (:P7_CONTRACTS_ID,x, doc_val,doc_hijri_date, null,:P7_FIN_YEAR,1,doc_hijri_date,
+      bassio.M2H_N(bassio.h2m(substr(doc_hijri_date,1,6)||to_char(to_number(substr(doc_hijri_date,7,4))+ 1))-1),doc_val);
+         doc_hijri_date := BASSIO.add_hijri_months(DOC_HIJRI_DATE,doc_months);
+    --  message(9);
+    END LOOP;   
+  --   message(10);
+  end loop;
+  END;
+  END;

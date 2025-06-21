@@ -1,0 +1,81 @@
+var freq=$v("P42_FREQUENCY");
+var myfreq=$v("P42_FREQ");
+var v_f_date =$v("P42_FROM_DATE");
+var currDate = new Date(apex.item("P42_FROM_DATE").getValue());
+//var last_Date= new Date(apex.item("P42_TO_DATE").getValue());
+//var newdat=new date(apex.item("P42_FROM_DATE").getValue());
+
+var model = apex.region("ig_js_insert").widget().interactiveGrid("getViews", "grid").model;
+model.forEach(function(igrow) {
+         if (freq==7){
+              var mm = currDate.getMonth()+1;                  
+     for (let i = 1; i <= 1; i++) {
+    var dd = currDate.getDate();
+       //alert('current date'+currDate.setDate(currDate.getDate()+freq));
+        
+//      var dd=currDate.setDate(currDate.getDate()+freq);
+
+    var yyyy = currDate.getFullYear();
+   var vDate = dd +'/'+mm+'/'+yyyy; 
+   alert(currDate);
+   model.setValue(igrow, 'INSP_DATE', vDate);
+    //alert('vdate'+vDate);
+   currDate.setDate(currDate.getDate()+7);
+
+    //currDate.setMonth(currDate.getMonth()+ 1);
+        }
+         }
+
+        else if (freq==30){
+         var mm = currDate.getMonth()+1; 
+     for (let i = 0; i < 1; i++) {
+    var dd = currDate.getDate();
+    var yyyy = currDate.getFullYear();
+   var vDate = dd +'/'+mm+'/'+yyyy; 
+   model.setValue(igrow, 'INSP_DATE', vDate); 
+  //  currDate.setMonth(currDate.getMonth()+ 3); 
+      currDate.setDate(currDate.getDate()+30);
+        }
+         }
+
+         else if (freq==90){
+         var mm = currDate.getMonth()+1; 
+     for (let i = 0; i < 1; i++) {
+    var dd = currDate.getDate();
+    var yyyy = currDate.getFullYear();
+   var vDate = dd +'/'+mm+'/'+yyyy; 
+   model.setValue(igrow, 'INSP_DATE', vDate); 
+    //currDate.setMonth(currDate.getMonth()+ 6); 
+      currDate.setDate(currDate.getDate()+90); 
+       
+        }
+         }
+        else if (freq==180){
+         var mm = currDate.getMonth()+1; 
+     for (let i = 0; i < 1; i++) {
+    var dd = currDate.getDate();
+    var yyyy = currDate.getFullYear();
+   var vDate = dd +'/'+mm+'/'+yyyy; 
+   model.setValue(igrow, 'INSP_DATE', vDate); 
+    //currDate.setMonth(currDate.getMonth()+ 12);
+    currDate.setDate(currDate.getDate()+180);
+    }
+        } 
+        else if (freq==360){
+         var mm = currDate.getMonth()+1; 
+     for (let i = 0; i < 1; i++) {
+    var dd = currDate.getDate();
+    var yyyy = currDate.getFullYear();
+   var vDate = dd +'/'+mm+'/'+yyyy; 
+   model.setValue(igrow, 'INSP_DATE', vDate); 
+    //currDate.setMonth(currDate.getMonth()+ 12);
+    currDate.setDate(currDate.getDate()+360);
+     }
+        } 
+        
+         
+         
+    
+    
+
+});
